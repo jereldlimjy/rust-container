@@ -18,7 +18,7 @@ fn run(args: &[String]) {
     if let Some(command) = args.get(0) {
         Command::new(command)
             .args(&args[1..])
-            .spawn()
+            .status()
             .expect("command failed to start");
     } else {
         panic!("no command provided");
