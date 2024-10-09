@@ -1,3 +1,4 @@
+use nix::sched::{unshare, CloneFlags};
 use std::env;
 use std::process::Command;
 
@@ -16,6 +17,8 @@ fn main() {
 
 fn run(args: &[String]) {
     if let Some(command) = args.get(0) {
+        unshare(CloneFlags::CLONE_NEWUTS).expect("failed to unshare namespace");
+
         Command::new(command)
             .args(&args[1..])
             .status()
